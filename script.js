@@ -8,31 +8,6 @@ var masLat = [];
 var masLng = [];
 var markers = [];
 var map;
-var opts = {
-  	lines: 13 , 
-  	length: 28, 
-  	width: 14, 
-  	radius: 42, 
-  	scale: 1, 
-  	corners: 1, 
-  	color: 'green', 
-  	opacity: 0.25, 
-  	rotate: 0, 
-  	direction: 1, 
-  	speed: 1, 
-  	trail: 60 , 
-  	fps: 20 , 
-  	zIndex: 2e9, 
-  	className: 'spinner', 
-  	top: '65%', 
-  	left: '50%', 
-  	shadow: false, 
-  	hwaccel: false, 
-  	position: 'absolute'
-};
-var target = document.getElementById('loading');
-var spinner = new Spinner(opts).spin(target);
-
 function CSVToArray(strData) {
     var objPattern = new RegExp(("(\\" + ";" + "|\\r?\\n|\\r|^)" + "(?:\'([^\']*(?:\'\'[^\']*)*)\'|" +
     "([^\'\\" + ";" + "\\r\\n]*))"), "gi");
@@ -54,7 +29,6 @@ function CSVToArray(strData) {
     }
     return (arrData);
 };
-
 function CSV2JSON(csv) {
     var array = CSVToArray(csv);
     var objArray = [];
