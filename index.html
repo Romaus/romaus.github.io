@@ -3,7 +3,46 @@
 <head>
 	<title>Minsktrans V2.0</title>
 	<meta charset = "utf-8">
-	<link rel="stylesheet" href="style.css">
+	<style type="text/css">
+   		body {
+	height: 100vh;
+	margin:0;
+}
+h1 {position: relative;
+	top:15%;
+	color: green;
+	opacity:0.8;
+	text-align: center;
+}
+ul {
+	margin: 0;
+	padding: 0
+}
+li {text-align: center;
+	list-style-type: none;
+	display:block;
+	cursor: pointer;
+	border-radius: 5px;
+
+}
+li:hover{
+	background-color: lightblue;
+}
+#listRoutesAB {
+	overflow-y:auto;
+	width:450px;
+	height: 100vh;
+	position: absolute;
+	left:0;
+	z-index: 1;
+}
+#map {
+	width:calc(100vw - 450px);
+	position: fixed;
+	left:450px;
+	height: 100vh;
+}
+  	</style>
 </head>
 <body>
    	<div id="listRoutesAB">
@@ -13,7 +52,6 @@
   	<div id="map"></div>
 </body>
 <script async src="script.js"></script>
-<script src="spin.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQRf2VyhBue5q0ROj93g0Nx36NXyL5i2U&callback=initMap">
 </script>
 </html>
