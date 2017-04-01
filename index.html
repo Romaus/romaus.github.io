@@ -10,9 +10,9 @@
 }
 h1 {position: relative;
 	top:15%;
-	color: green;
-	opacity:0.8;
+	color: #D62929;
 	text-align: center;
+	text-shadow: inset 0 0 10px rgba(0,0,0,.3);
 }
 ul {
 	margin: 0;
@@ -22,8 +22,18 @@ li {text-align: center;
 	list-style-type: none;
 	display:block;
 	cursor: pointer;
-	border-radius: 5px;
-
+	border-radius: 10px;
+}
+#listRoutesAB::-webkit-scrollbar
+{
+	width: 14px;
+	background-color: lightblue;
+}
+#listRoutesAB::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #D62929;
 }
 li:hover{
 	background-color: lightblue;
@@ -47,10 +57,12 @@ li:hover{
 <body>
    	<div id="listRoutesAB">
    		<h1>Идет загрузка маршрутов</h1>
+   		<div id="loading"></div>
    	</div>
   	<div id="map"></div>
 </body>
 <script async src="script.js"></script>
+<script src="spin.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQRf2VyhBue5q0ROj93g0Nx36NXyL5i2U&callback=initMap">
 </script>
 </html>
