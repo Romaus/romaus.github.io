@@ -150,7 +150,7 @@ function getRoutesBusAB(){
 };
 
 function initMap() {
-  var minskTransCenterGPS = '27592013;53903311'.split(';')
+  var minskTransCenterGPS = '27443346;53909250'.split(';')
   var centerGPS = {
       lat: toGPS(minskTransCenterGPS[1]),
       lng: toGPS(minskTransCenterGPS[0])
