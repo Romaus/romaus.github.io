@@ -9,7 +9,7 @@
 	margin:0;
 }
 h1 {position: relative;
-	top:15%;
+	top:13%;
 	color: #D62929;
 	text-align: center;
 	text-shadow: inset 0 0 10px rgba(0,0,0,.3);
@@ -19,15 +19,15 @@ ul {
 	padding: 0
 }
 li {text-align: center;
+	text-decoration: bold;
 	list-style-type: none;
 	display:block;
 	cursor: pointer;
 	border-radius: 10px;
 }
 #listRoutesAB::-webkit-scrollbar
-{
+{	height: 400px;
 	width: 14px;
-	background-color: lightblue;
 }
 #listRoutesAB::-webkit-scrollbar-thumb
 {
@@ -39,17 +39,23 @@ li:hover{
 	background-color: lightblue;
 }
 #listRoutesAB {
+	background-color: white;
+	opacity: 0.85;
+	padding: 10px;
 	overflow-y:auto;
 	width:450px;
-	height: 100vh;
+	height: calc(100vh - 70px);
 	position: absolute;
-	left:0;
+	top:20px;
+	left:20px;
 	z-index: 1;
+	border: 3px solid #D62929;
+	border-radius: 10px;
+	box-shadow: inset 0 0 3px rgba(0,0,0,.3);
 }
 #map {
-	width:calc(100vw - 450px);
+	width: 100vw;
 	position: fixed;
-	left:450px;
 	height: 100vh;
 }
   	</style>
