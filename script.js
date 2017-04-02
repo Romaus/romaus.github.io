@@ -9,26 +9,26 @@ var masLng = [];
 var markers = [];
 var map;
 var opts = {
-    lines: 13 , 
-    length: 28, 
-    width: 14, 
-    radius: 42, 
-    scale: 1, 
-    corners: 1, 
-    color: '#D62929', 
-    opacity: 0.25, 
-    rotate: 0, 
-    direction: 1, 
-    speed: 1.8, 
-    trail: 100 , 
-    fps: 60 , 
-    zIndex: 2e9, 
-    className: 'spinner', 
-    top: '65%', 
-    left: '50%', 
-    shadow: false, 
-    hwaccel: false, 
-    position: 'absolute'
+  	lines: 13 , 
+  	length: 28, 
+  	width: 14, 
+  	radius: 42, 
+  	scale: 1, 
+  	corners: 1, 
+  	color: '#D62929', 
+  	opacity: 0.25, 
+  	rotate: 0, 
+  	direction: 1, 
+  	speed: 1.8, 
+  	trail: 100 , 
+  	fps: 60 , 
+  	zIndex: 2e9, 
+  	className: 'spinner', 
+  	top: '60%', 
+  	left: '50%', 
+  	shadow: false, 
+  	hwaccel: false, 
+  	position: 'absolute'
 };
 var target = document.getElementById('loading');
 var spinner = new Spinner(opts).spin(target);
@@ -64,12 +64,12 @@ function CSV2JSON(csv) {
             var masKey = array[0][k].split(";");
             var masValue = array[i][k].split(";");
             for (var j = 0; j < masKey.length; j++) {
-              var key = masKey[j];
-              objArray[i - 1][key] = masValue[j];
-              };  
+            	var key = masKey[j];
+            	objArray[i - 1][key] = masValue[j];
+            	};	
         }
     }
-  return objArray;
+	return objArray;
 };
 
 window.onload = function(){
@@ -104,145 +104,152 @@ window.onload = function(){
 };
 
 function getStopsBus(){
-  for (var i = 0; i <  stops1.length; i++) {
-    if (stops1[i]["Lat"] !=""){
-      massStopsBus.push(stops1[i]);
-    };
-  };
-  for (var i = 0; i < massStopsBus.length; i++) {
-    if(massStopsBus[i]["Name"] == "" ){
-      var c = massStopsBus[i]["Stops"].split(",");
-      var c1;
-      var c2;
-      var c3;
-      for (var j = 0; j < massStopsBus.length; j++) {
-        if(massStopsBus[j]["ID"] == c[0]){
-          c1 = j
-        }
-        else if(massStopsBus[j]["ID"] == c[1]){
-            c2 = j
-        }
-        else if(massStopsBus[j]["ID"] == c[2]){
-            c3 = j
-        }
-      };
-      if (massStopsBus[c1]["Name"]!=""){
-        massStopsBus[i]["Name"] = massStopsBus[c1]["Name"]
-      }
-      else {massStopsBus[i]["Name"] = massStopsBus[c2]["Name"]}
-    };
-  };
+	for (var i = 0; i <  stops1.length; i++) {
+		if (stops1[i]["Lat"] !=""){
+			massStopsBus.push(stops1[i]);
+		};
+	};
+	for (var i = 0; i < massStopsBus.length; i++) {
+		if(massStopsBus[i]["Name"] == "" ){
+			var c = massStopsBus[i]["Stops"].split(",");
+			var c1;
+			var c2;
+			var c3;
+			for (var j = 0; j < massStopsBus.length; j++) {
+				if(massStopsBus[j]["ID"] == c[0]){
+					c1 = j
+				}
+				else if(massStopsBus[j]["ID"] == c[1]){
+						c2 = j
+				}
+				else if(massStopsBus[j]["ID"] == c[2]){
+						c3 = j
+				}
+			};
+			if (massStopsBus[c1]["Name"]!=""){
+				massStopsBus[i]["Name"] = massStopsBus[c1]["Name"]
+			}
+			else {massStopsBus[i]["Name"] = massStopsBus[c2]["Name"]}
+		};
+	};
 };
 
 function getRoutesBusAB(){
-  var listRoutes = "<ul onmousedown='return false' onselectstart='return false'>";
-  var c = 0;
-  for (var i = 0; i <  routes1.length; i++) {
-    if (routes1[i]["RouteType"] =="A>B"){
-      if(routes1[i]["Transport"]=="metro"){break};
-      massRoutesBus.push(routes1[i]);
-      listRoutes +="<li id='"+c+"'onclick='showMarkers("+c+")'>"+routes1[i]["RouteNum"]+"  "+routes1[i]["RouteName"]+"<br></li>"
-      c++;
-      };
-  };
-  listRoutes +="</ul>";
-  document.getElementById("listRoutesAB").innerHTML = listRoutes;
+	var listRoutes = "<ul onmousedown='return false' onselectstart='return false'>";
+	var c = 0;
+	for (var i = 0; i <  routes1.length; i++) {
+		if (routes1[i]["RouteType"] =="A>B" && routes1[i]["RouteNum"]!=""){
+			if(routes1[i]["Transport"]=="metro"){break};
+			massRoutesBus.push(routes1[i]);
+			listRoutes +="<li id='"+c+"'onclick='showMarkers("+c+")'>"+routes1[i]["RouteNum"]+"  "+routes1[i]["RouteName"]+"<br></li>"
+			c++;
+			};
+	};
+	listRoutes +="</ul>";
+	document.getElementById("listRoutesAB").innerHTML = listRoutes;
 };
 
 function initMap() {
-  var minskTransCenterGPS = '27443346;53909250'.split(';')
-  var centerGPS = {
-      lat: toGPS(minskTransCenterGPS[1]),
-      lng: toGPS(minskTransCenterGPS[0])
-    };
-    map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 11,
-      zoomControl: false,
-      streetViewControl:false,
-      mapTypeControl:false,
-      center: centerGPS
-    });
+	var minskTransCenterGPS = '27443346;53909250'.split(';')
+	var centerGPS = {
+    	lat: toGPS(minskTransCenterGPS[1]),
+    	lng: toGPS(minskTransCenterGPS[0])
+  	};
+  	map = new google.maps.Map(document.getElementById('map'), {
+    	zoom: 11,
+    	zoomControl: false,
+    	streetViewControl:false,
+    	mapTypeControl:false,
+    	center: centerGPS
+  	});
 };
 
 function toGPS(bs) {
-    var tmp = bs.split('')
-    tmp.splice(2, 0, '.')
-    return parseFloat(tmp.join(''))
+  	var tmp = bs.split('')
+  	tmp.splice(2, 0, '.')
+  	return parseFloat(tmp.join(''))
 };
 
 function getmassStopsForRoute(number){
-  massStops = massRoutesBus[number]["RouteStops"].split(',');
-  };
-
+	if (massRoutesBus[number]["RouteStops"]!=""){
+		massStops = massRoutesBus[number]["RouteStops"].split(',');}
+	else if(massRoutesBus[number]["RouteStops"]==""){
+		for (var i = 0; i < routes1.length; i++) {
+			if(routes1[i]["RouteID"] == massRoutesBus[number]["RouteID"]){
+				massStops = routes1[i+1]["RouteStops"].split(',').reverse();
+			}
+		};
+	}
+};
 function getCoorStops(stopsID){
-  for (var i = 0; i < massStopsBus.length; i++) {
-    if(massStopsBus[i]["ID"] == stopsID){
-      masLat.push(massStopsBus[i]["Lat"]);
-      masLng.push(massStopsBus[i]["Lng"]);
-      massStopsName.push(massStopsBus[i]["Name"]);
-    };
-  };
+	for (var i = 0; i < massStopsBus.length; i++) {
+		if(massStopsBus[i]["ID"] == stopsID){
+			masLat.push(massStopsBus[i]["Lat"]);
+			masLng.push(massStopsBus[i]["Lng"]);
+			massStopsName.push(massStopsBus[i]["Name"]);
+		};
+	};
 };
 
 function getmassCoorPoints(){
-  for (var i = 0; i < massStops.length; i++) {
-    getCoorStops(massStops[i]);
-  };
+	for (var i = 0; i < massStops.length; i++) {
+		getCoorStops(massStops[i]);
+	};
 };
 
 function addMarker(location, title) {
-    var contentString = '<div id="content">'+title+'</div>';
-  var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-    var marker = new google.maps.Marker({
-      position: location,
-      map: map
-    });
-    marker.addListener('click', function() {
+  	var contentString = '<div id="content">'+title+'</div>';
+	var infowindow = new google.maps.InfoWindow({
+    	content: contentString
+  	});
+  	var marker = new google.maps.Marker({
+    	position: location,
+    	map: map
+  	});
+  	marker.addListener('click', function() {
     infowindow.open(map, marker);
-    });  
-    markers.push(marker);
+  	});  
+  	markers.push(marker);
 };
 
 function getMarkers(){
-  for (var i = 0; i < massStopsName.length; i++) {
-    var obj = {};
-    obj.lat = toGPS(masLat[i]);
-    obj.lng = toGPS(masLng[i]);
-    addMarker(obj, massStopsName[i]);
-  };
+	for (var i = 0; i < massStopsName.length; i++) {
+		var obj = {};
+		obj.lat = toGPS(masLat[i]);
+		obj.lng = toGPS(masLng[i]);
+		addMarker(obj, massStopsName[i]);
+	};
 };
 
 function showMarkers(r){
-  deleteMarkers();
-  getmassStopsForRoute(r);
-  getmassCoorPoints();
-  getMarkers();
-  var temp = document.getElementById(r);
-  temp.style.backgroundColor = "#D62929";
-  temp.style.boxShadow = "inset 0 0 6px rgba(0,0,0,.3)";
+	deleteMarkers();
+	getmassStopsForRoute(r);
+	getmassCoorPoints();
+	getMarkers();
+	var temp = document.getElementById(r);
+	temp.style.backgroundColor = "#D62929";
+	temp.style.boxShadow = "inset 0 0 6px rgba(0,0,0,.3)";
 };
 
 function setMapOnAll(map) {
-    for (var i = 0; i < markers.length; i++) {
-      markers[i].setMap(map);
-    };
+  	for (var i = 0; i < markers.length; i++) {
+    	markers[i].setMap(map);
+  	};
 };
 
 function clearMarkers() {
-    setMapOnAll(null);
+  	setMapOnAll(null);
 };
 
 function deleteMarkers() {
-    clearMarkers();
-    markers = [];
-    masLat = [];
-    masLng = [];
-    massStopsName = [];
-    for (var i = 0; i < massRoutesBus.length; i++) {
-      var temp = document.getElementById(i);
-      temp.style.backgroundColor = "";
-      temp.style.boxShadow = "";
-   };
+  	clearMarkers();
+  	markers = [];
+  	masLat = [];
+  	masLng = [];
+  	massStopsName = [];
+  	for (var i = 0; i < massRoutesBus.length; i++) {
+   		var temp = document.getElementById(i);
+  		temp.style.backgroundColor = "";
+  		temp.style.boxShadow = "";
+ 	 };
 };
