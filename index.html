@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Minsktrans V2.0</title>
+	<title>Minsktrans V2.1</title>
 	<meta charset = "utf-8">
 	<style type="text/css">
    		body {
@@ -55,6 +55,21 @@ li:hover{
 	border-radius: 10px;
 	box-shadow: inset 0 0 3px rgba(0,0,0,.3);
 }
+#disRoutes {
+	background-color: white;
+	opacity: 0.85;
+	width:200px;
+	height:100px;
+	padding:10px;
+	position: absolute;
+	bottom:10vh;
+	right:10vw;
+	z-index: 1;
+	border: 3px solid #D62929;
+	border-radius: 10px;
+	box-shadow: inset 0 0 3px rgba(0,0,0,.3);
+	display: none;
+}
 #map {
 	width: 100vw;
 	position: fixed;
@@ -67,10 +82,11 @@ li:hover{
    		<h1>Идет загрузка маршрутов</h1>
    		<div id="loading"></div>
    	</div>
+    <div id="disRoutes"></div>
   	<div id="map"></div>
 </body>
 <script src="spin.min.js"></script>
 <script src="script.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQRf2VyhBue5q0ROj93g0Nx36NXyL5i2U&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyBQRf2VyhBue5q0ROj93g0Nx36NXyL5i2U&callback=initMap">
 </script>
 </html>
