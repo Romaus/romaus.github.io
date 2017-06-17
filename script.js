@@ -221,11 +221,29 @@ function getMarkers(){
 	};
 };
 
+function calcDistanceRoute(){
+	var dis = 0;
+	var time = 0;
+	for (var i = 0; i < massStopsName.length-1; i++) {
+		var p1 = new google.maps.LatLng(toGPS(masLat[i]), toGPS(masLng[i]));
+    	var p2 = new google.maps.LatLng(toGPS(masLat[i+1]), toGPS(masLng[i+1]));
+    	var distance = google.maps.geometry.spherical.computeDistanceBetween(p1, p2);
+       	dis+=distance;
+    };
+    time = dis/270;
+    var text;
+    text = "Длина маршрута составляет "+dis.toFixed(2)+" метров <br><br>Длительность маршрута равна " +time.toFixed(0)+" мин."
+   	var temp = document.getElementById("disRoutes");
+   	temp.innerHTML = text;
+   	temp.style.display = "block";
+};
+
 function showMarkers(r){
 	deleteMarkers();
 	getmassStopsForRoute(r);
 	getmassCoorPoints();
 	getMarkers();
+	calcDistanceRoute();
 	var temp = document.getElementById(r);
 	temp.style.backgroundColor = "#D62929";
 	temp.style.boxShadow = "inset 0 0 6px rgba(0,0,0,.3)";
