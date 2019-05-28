@@ -111,11 +111,17 @@ function getStopsBus(){
 function getRoutesBusAB(){
 	var listRoutes = "<ul onmousedown='return false' onselectstart='return false'>";
 	var c = 0;
+	let backgroundColor = "rgba(255,0,0,0.3)";
 	for (var i = 0; i <  routes1.length; i++) {
 		if (routes1[i]["RouteType"] =="A>B" && routes1[i]["RouteNum"]!=""){
-			if(routes1[i]["Transport"]=="metro"){break};
+			if(routes1[i]["Transport"]=="tram"){
+				backgroundColor = "rgba(0,255,0,0.3)"
+			}
+			else if (routes1[i]["Transport"]=="trol") {
+				backgroundColor = "rgba(0,0,255,0.3)"
+			}
 			massRoutesBus.push(routes1[i]);
-			listRoutes +="<li id='"+c+"'onclick='showMarkers("+c+")'>"+routes1[i]["RouteNum"]+"  "+routes1[i]["RouteName"]+"<br></li>"
+			listRoutes +=`<div style='background-color:${backgroundColor}'><li style='margin:0' id='`+c+"'onclick='showMarkers("+c+")'>"+routes1[i]["RouteNum"]+"  "+routes1[i]["RouteName"]+"</li></div>"
 			c++;
 			};
 	};
