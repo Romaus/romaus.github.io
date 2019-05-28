@@ -33,43 +33,17 @@ var opts = {
 var target = document.getElementById('loading');
 var spinner = new Spinner(opts).spin(target);
 
-function CSVToArray(strData) {
-    var objPattern = new RegExp(("(\\" + ";" + "|\\r?\\n|\\r|^)" + "(?:\'([^\']*(?:\'\'[^\']*)*)\'|" +
-    "([^\'\\" + ";" + "\\r\\n]*))"), "gi");
-    var arrData = [[]];
-    var arrMatches = null;
-    while (arrMatches = objPattern.exec(strData)) {
-        var strMatchedDelimiter = arrMatches[1];
-        if (strMatchedDelimiter.length && (strMatchedDelimiter != ";")) {
-            arrData.push([]);
-        }
-        if (arrMatches[2]) {
-            var strMatchedValue = arrMatches[2].replace(
-            new RegExp("\"\"", "g"), "\"");
-        } 
-        else {
-            var strMatchedValue = arrMatches[3];
-        }
-        arrData[arrData.length - 1].push(strMatchedValue);
-    }
-    return (arrData);
-};
-
-function CSV2JSON(csv) {
-    var array = CSVToArray(csv);
-    var objArray = [];
-    for (var i = 1; i < array.length; i++) {
-        objArray[i - 1] = {};
-        for (var k = 0; k < array[0].length && k < array[i].length; k++) {
-            var masKey = array[0][k].split(";");
-            var masValue = array[i][k].split(";");
-            for (var j = 0; j < masKey.length; j++) {
-            	var key = masKey[j];
-            	objArray[i - 1][key] = masValue[j];
-            	};	
-        }
-    }
-	return objArray;
+const csvToJson = csv => {
+  const [firstLine, ...lines] = csv.split('\n');
+  return lines.map(line =>
+    firstLine.split(';').reduce(
+      (curr, next, index) => ({
+        ...curr,
+        [next]: line.split(';')[index],
+      }),
+      {}
+    )
+  );
 };
 
 window.onload = function(){
@@ -84,7 +58,7 @@ window.onload = function(){
       alert(xhr.status + ': ' + xhr.statusText);
       return;
     }
-    routes1 = CSV2JSON(xhr.responseText);
+		routes1 = csvToJson(xhr.responseText);
     getRoutesBusAB();
   };
   var xhr1 = new XMLHttpRequest();
@@ -98,7 +72,7 @@ window.onload = function(){
       alert(xhr1.status + ': ' + xhr1.statusText);
       return;
     }
-    stops1 = CSV2JSON(xhr1.responseText);
+    stops1 = csvToJson(xhr1.responseText);
     getStopsBus();
   };
 };
