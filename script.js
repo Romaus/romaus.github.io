@@ -47,34 +47,44 @@ const csvToJson = csv => {
 };
 
 window.onload = function(){
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://gp-js-test.herokuapp.com/proxy/http://www.minsktrans.by/city/minsk/routes.txt', true);
-  xhr.send();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState != 4) {
-      return;
-    }
-    if (xhr.status != 200 && xhr.status != 0) {
-      alert(xhr.status + ': ' + xhr.statusText);
-      return;
-    }
-		routes1 = csvToJson(xhr.responseText);
-    getRoutesBusAB();
-  };
-  var xhr1 = new XMLHttpRequest();
-  xhr1.open('GET', 'https://gp-js-test.herokuapp.com/proxy/http://www.minsktrans.by/city/minsk/stops.txt', true);
-  xhr1.send();
-  xhr1.onreadystatechange = function() {
-    if (xhr1.readyState != 4) {
-      return;
-    }
-    if (xhr1.status != 200 && xhr1.status != 0) {
-      alert(xhr1.status + ': ' + xhr1.statusText);
-      return;
-    }
-    stops1 = csvToJson(xhr1.responseText);
-    getStopsBus();
-  };
+	if (localStorage.minsktransAppLastDate === undefined || (Date.now() - localStorage.minsktransAppLastDate) > 86400000) {
+		localStorage.minsktransAppLastDate = Date.now();
+		var xhr = new XMLHttpRequest();
+  	xhr.open('GET', 'https://gp-js-test.herokuapp.com/proxy/http://www.minsktrans.by/city/minsk/routes.txt', true);
+  	xhr.send();
+  	xhr.onreadystatechange = function() {
+    	if (xhr.readyState != 4) {
+      	return;
+    	}
+    	if (xhr.status != 200 && xhr.status != 0) {
+      	alert(xhr.status + ': ' + xhr.statusText);
+      	return;
+			}
+			localStorage.minsktransAppRoutes = xhr.responseText;
+			routes1 = csvToJson(xhr.responseText);
+    	getRoutesBusAB();
+  	};
+  	var xhr1 = new XMLHttpRequest();
+  	xhr1.open('GET', 'https://gp-js-test.herokuapp.com/proxy/http://www.minsktrans.by/city/minsk/stops.txt', true);
+  	xhr1.send();
+  	xhr1.onreadystatechange = function() {
+    	if (xhr1.readyState != 4) {
+      	return;
+    	}
+    	if (xhr1.status != 200 && xhr1.status != 0) {
+      	alert(xhr1.status + ': ' + xhr1.statusText);
+      	return;
+			}
+			localStorage.minsktransAppStops = xhr1.responseText;
+    	stops1 = csvToJson(xhr1.responseText);
+    	getStopsBus();
+  	};
+	} else {
+		routes1 = csvToJson(localStorage.minsktransAppRoutes);
+  	getRoutesBusAB();
+  	stops1 = csvToJson(localStorage.minsktransAppStops);
+  	getStopsBus();
+	}
 };
 
 function getStopsBus(){
